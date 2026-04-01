@@ -13,7 +13,7 @@ export default function ScrollController() {
     const [thumbY, setThumbY] = useState(0);
 
     const JOY_RADIUS = 50;  
-    const SCROLL_SPEED = 15; 
+    const SCROLL_SPEED = 35; 
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 1024 || 'ontouchstart' in window);
@@ -44,7 +44,7 @@ export default function ScrollController() {
             // 2. Joystick velocity
             if (joyState.current.active) {
                 // Map the thumbstick pixel offset directly to scroll velocity (multiplier provides sensitivity)
-                delta += joyState.current.currentY * 0.3;
+                delta += joyState.current.currentY * 0.8;
             }
 
             // Apply natively
@@ -76,6 +76,9 @@ export default function ScrollController() {
     const handleTouchMove = (e: React.TouchEvent) => {
         if (!joyState.current.active) return;
         
+        // Prevent default browser touch actions while using joystick
+        if (e.cancelable) e.preventDefault();
+
         let deltaY = e.touches[0].clientY - joyState.current.startY;
         
         // Clamp visually strictly to Y-axis limit
