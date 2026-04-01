@@ -152,11 +152,11 @@ const TechStack = () => {
           {/* Header */}
           <h2 style={{ 
               color: 'white', 
-              fontSize: '3.5rem', 
+              fontSize: window.innerWidth < 768 ? '2.5rem' : '3.5rem', 
               fontWeight: 800, 
               letterSpacing: '3px',
               textAlign: 'center',
-              margin: '0 0 80px 0', // True 80px bottom margin
+              margin: `0 0 ${window.innerWidth < 768 ? '40px' : '80px'} 0`,
               textShadow: '0 10px 30px rgba(0,0,0,0.8)',
               animation: 'slideFadeIn 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
               zIndex: 10,
@@ -170,8 +170,8 @@ const TechStack = () => {
               width: '90%',
               maxWidth: '1100px',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: `repeat(auto-fit, minmax(${window.innerWidth < 480 ? '140px' : '220px'}, 1fr))`,
+              gap: window.innerWidth < 768 ? '16px' : '24px',
               zIndex: 5,
               position: 'relative'
           }}>

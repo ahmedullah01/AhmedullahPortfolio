@@ -298,6 +298,14 @@
   }
 }
 @media only screen and (max-width: 768px) {
-  .floating-project-card { width: 100%; }
-  .work-section h2 { font-size: 50px; }
+  .floating-project-card { width: 95%; margin: 0 auto; }
+  .work-section h2 { font-size: 3rem; margin-bottom: 60px; }
+  .floating-projects-wrapper { gap: 80px; }
+  .floating-project-content { padding: 20px; }
+  .floating-project-text h4 { font-size: 1.5rem; }
+  .floating-project-number { font-size: 35px; }
+}
+@media only screen and (max-width: 480px) {
+  .work-section h2 { font-size: 2.2rem; }
+  .floating-project-text h4 { font-size: 1.3rem; }
 }

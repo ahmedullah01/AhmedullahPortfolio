@@ -43,6 +43,19 @@ function SocialIcon({ data }: any) {
 }
 
 const Contact = () => {
+    const [showEmail, setShowEmail] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const handleEmailClick = () => {
+        if (!showEmail) {
+            setShowEmail(true);
+        } else {
+            navigator.clipboard.writeText("ahmedullah2095@gmail.com");
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
+
     return (
         <div className="contact-section full-width-section" id="contact" style={{ 
             position: 'relative', 
@@ -54,7 +67,8 @@ const Contact = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            padding: '100px 0'
         }}>
             
             {/* Subtle WebGL Background */}
@@ -77,10 +91,12 @@ const Contact = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                padding: '40px'
+                padding: '40px',
+                width: '100%',
+                maxWidth: '600px'
             }}>
                 <h2 style={{ 
-                  fontSize: '3rem', 
+                  fontSize: window.innerWidth < 768 ? '2.2rem' : '3rem', 
                   fontWeight: 800, 
                   margin: '0 0 10px 0', 
                   color: '#fff',
@@ -89,45 +105,78 @@ const Contact = () => {
                   Let's Connect
                 </h2>
                 
-                <p style={{ color: '#b0aeb5', fontSize: '1.1rem', marginBottom: '40px', maxWidth: '450px', lineHeight: '1.6' }}>
+                <p style={{ color: '#b0aeb5', fontSize: window.innerWidth < 768 ? '1rem' : '1.1rem', marginBottom: '40px', maxWidth: '450px', lineHeight: '1.6' }}>
                   Reach out to build something extraordinary, or connect with me via my social networks.
                 </p>
 
                 {/* Simple Row of icons */}
-                <div style={{ display: 'flex', gap: '20px', marginBottom: '40px' }}>
+                <div style={{ display: 'flex', gap: '20px', marginBottom: '40px', flexWrap: 'wrap', justifyContent: 'center' }}>
                     {cards.map(card => <SocialIcon key={card.id} data={card} />)}
                 </div>
 
-                {/* Primary Contact Button */}
-                <a 
-                    href="mailto:ahmedullah2095@gmail.com"
-                    style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '14px 32px',
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        borderRadius: '30px',
-                        color: 'white',
-                        textDecoration: 'none',
-                        fontSize: '1rem',
-                        fontWeight: 600,
-                        transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                        e.currentTarget.style.boxShadow = '0 10px 25px rgba(255,255,255,0.1)';
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                        e.currentTarget.style.boxShadow = 'none';
-                        e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                >
-                    Send an Email <MdArrowOutward size={20} />
-                </a>
+                {/* Primary Contact Button & Email Badge Container */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%' }}>
+                    <button 
+                        onClick={handleEmailClick}
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            padding: '14px 32px',
+                            background: 'rgba(255,255,255,0.05)',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '30px',
+                            color: 'white',
+                            cursor: 'pointer',
+                            fontSize: '1rem',
+                            fontWeight: 600,
+                            transition: 'all 0.3s ease',
+                            outline: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+                            e.currentTarget.style.boxShadow = '0 10px 25px rgba(255,255,255,0.1)';
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                            e.currentTarget.style.boxShadow = 'none';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                    >
+                        {showEmail ? (copied ? 'Email Copied!' : 'Click to Copy') : 'Send an Email'} 
+                        <MdArrowOutward size={20} style={{ transform: showEmail ? 'rotate(90deg)' : 'none', transition: '0.3s' }} />
+                    </button>
+
+                    {/* The Email Display Badge (Pulse Tag Style) */}
+                    {showEmail && (
+                        <div style={{
+                            fontSize: window.innerWidth < 480 ? '13px' : '15px',
+                            fontWeight: 500,
+                            color: 'var(--accentColor)',
+                            letterSpacing: '1px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            backgroundColor: 'rgba(94, 234, 212, 0.08)',
+                            padding: '10px 20px',
+                            borderRadius: '50px',
+                            border: '1px solid rgba(94, 234, 212, 0.3)',
+                            boxShadow: '0 0 20px rgba(94, 234, 212, 0.1)',
+                            animation: 'fadeInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                            position: 'relative'
+                        }}>
+                            <style>{`
+                                @keyframes fadeInUp {
+                                    from { opacity: 0; transform: translateY(10px); }
+                                    to { opacity: 1; transform: translateY(0); }
+                                }
+                            `}</style>
+                            ahmedullah2095@gmail.com
+                            <div className="career-pulse-dot" style={{ position: 'relative', right: 'auto', top: 'auto', width: '8px', height: '8px' }}></div>
+                        </div>
+                    )}
+                </div>
 
                 {/* Footer Copyright */}
                 <div style={{ 

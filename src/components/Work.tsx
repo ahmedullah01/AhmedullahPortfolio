@@ -78,23 +78,26 @@ const Work = () => {
 
     // Floating cards parallax and entrance
     cards.forEach((card, index) => {
+      const isMobile = window.innerWidth <= 768;
       const isEven = index % 2 === 0;
-      const xOffset = isEven ? -150 : 150;
+      
+      // Reduce xOffset on mobile to prevent clutter and overflow
+      const xOffset = isMobile ? (isEven ? -30 : 30) : (isEven ? -150 : 150);
       const speed = 1 + (index % 3) * 0.2; // Parallax speed variance
       
       // The entrance slide-in and fade-in
       gsap.fromTo(card, 
-        { x: xOffset, opacity: 0, scale: 0.9 },
+        { x: xOffset, opacity: 0, scale: 0.95 },
         { 
           x: 0, opacity: 1, scale: 1, 
           duration: 1.4, ease: "back.out(1.2)", 
-          scrollTrigger: { trigger: card, start: "top 85%" }
+          scrollTrigger: { trigger: card, start: "top 90%" }
         }
       );
 
-      // The parallax translation mapping to scroll
+      // The parallax translation mapping to scroll (subtler on mobile)
       gsap.to(card, {
-        y: -100 * speed,
+        y: isMobile ? -30 * speed : -100 * speed,
         ease: "none",
         scrollTrigger: {
           trigger: card,
