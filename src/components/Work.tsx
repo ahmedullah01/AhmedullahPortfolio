@@ -14,42 +14,42 @@ const projects = [
     title: "B2B Platform",
     category: "Operations & Data Pipeline",
     tools: "Backend system for business-to-business operations, handling data efficiently and ensuring smooth workflows.",
-    image: "/images/b2b-platform.png",
+    image: "/images/b2b-platform.webp",
     link: "#",
   },
   {
     title: "Currency Prediction",
     category: "Data Analysis & AI",
     tools: "Analyzes results data and predicts currency trends using algorithms and statistical methods.",
-    image: "/images/aed-dashboard.png",
+    image: "/images/aed-dashboard.webp",
     link: "https://github.com/ahmedullah01/aed-exchange-dashboard",
   },
   {
     title: "Flight Management",
     category: "Booking System",
     tools: "Full-fledged system to manage flights, bookings, and schedules with user-friendly interfaces.",
-    image: "/images/flight-management.png",
+    image: "/images/flight-management.webp",
     link: "https://github.com/ahmedullah01/Airport_And_Ticket_MS",
   },
   {
     title: "Banking System",
     category: "Financial Application",
     tools: "Simulated banking application with account management, transactions, and secure operations.",
-    image: "/images/banking-system.png",
+    image: "/images/banking-system.webp",
     link: "https://github.com/ahmedullah01/Bank_Version_1",
   },
   {
     title: "MS Paint",
     category: "Desktop Application",
     tools: "A basic drawing application replicating MS Paint functionality, focusing on graphics handling and user interactions.",
-    image: "/images/ms-paint.png",
+    image: "/images/ms-paint.webp",
     link: "https://github.com/ahmedullah01/MS-PAINT-LINE-TOOL-",
   },
   {
     title: "Inventory Management System",
     category: "Enterprise Application",
     tools: "A comprehensive inventory management system built in Java for tracking products, managing stock levels, and handling orders.",
-    image: "/images/inventory-management.png",
+    image: "/images/inventory-management.webp",
     link: "https://github.com/ahmedullah01/NEWinventoryjava",
   },
 ];
@@ -77,33 +77,28 @@ const Work = () => {
     }
 
     // Floating cards parallax and entrance
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
       const isMobile = window.innerWidth <= 768;
-      const isEven = index % 2 === 0;
       
-      // Reduce xOffset on mobile to prevent clutter and overflow
-      const xOffset = isMobile ? (isEven ? -30 : 30) : (isEven ? -150 : 150);
-      const speed = 1 + (index % 3) * 0.2; // Parallax speed variance
-      
-      // The entrance slide-in and fade-in
+      // The entrance slide-in and fade-in (simpler on mobile)
       gsap.fromTo(card, 
-        { x: xOffset, opacity: 0, scale: 0.95 },
+        { y: 50, opacity: 0 },
         { 
-          x: 0, opacity: 1, scale: 1, 
-          duration: 1.4, ease: "back.out(1.2)", 
+          y: 0, opacity: 1, 
+          duration: 1.2, ease: "power2.out", 
           scrollTrigger: { trigger: card, start: "top 90%" }
         }
       );
 
-      // The parallax translation mapping to scroll (subtler on mobile)
+      // Subtler parallax scroll
       gsap.to(card, {
-        y: isMobile ? -30 * speed : -100 * speed,
+        y: isMobile ? -20 : -60,
         ease: "none",
         scrollTrigger: {
           trigger: card,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1.5,
+          scrub: 1,
         }
       });
     });
