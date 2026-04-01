@@ -10,7 +10,7 @@ const Loading = ({ percent }: { percent: number }) => {
   if (percent >= 100 && !isLoaded) {
     setTimeout(() => {
       setIsLoaded(true);
-    }, 1600);
+    }, 300); // Drastically reduced from 1.6s for snappier feel
   }
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 900);
+        }, 300); // Reduced from 900ms
       }
     });
   }, [isLoaded]);
@@ -60,22 +60,23 @@ export default Loading;
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
+  // Faster initial simulation
   let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
+    if (percent <= 60) {
+      let rand = Math.round(Math.random() * 12) + 5; // Faster increments
+      percent = Math.min(60, percent + rand);
       setLoading(percent);
     } else {
       clearInterval(interval);
       interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
-        if (percent > 91) {
+        percent = percent + Math.round(Math.random() * 2);
+        setLoading(Math.min(98, percent));
+        if (percent >= 98) {
           clearInterval(interval);
         }
-      }, 2000);
+      }, 500); // Faster updates for final stretch
     }
-  }, 100);
+  }, 40); // Faster initial interval
 
   function clear() {
     clearInterval(interval);
@@ -87,13 +88,13 @@ export const setProgress = (setLoading: (value: number) => void) => {
       clearInterval(interval);
       interval = setInterval(() => {
         if (percent < 100) {
-          percent++;
-          setLoading(percent);
+          percent += 4; // Faster jump to 100% when assets ready
+          setLoading(Math.min(100, percent));
         } else {
           resolve(percent);
           clearInterval(interval);
         }
-      }, 2);
+      }, 10);
     });
   }
   return { loaded, percent, clear };

@@ -67,7 +67,7 @@ const Scene = () => {
             setTimeout(() => {
               light.turnOnLights();
               animations.startIntro();
-            }, 2500);
+            }, 500); // Reduced from 2500ms for elegant but fast reveal
           });
           window.addEventListener("resize", () =>
             handleResize(renderer, camera, canvasDiv, character)
