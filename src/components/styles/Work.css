@@ -1,0 +1,303 @@
+/* ── Work Section ── */
+.work-section {
+  position: relative;
+  z-index: 1;
+  background-color: var(--backgroundColor);
+  padding: 100px 0;
+  overflow: hidden; /* Prevent horizontal scroll from glowing assets */
+}
+
+.work-section h2 {
+  font-size: 70px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 120px;
+  text-align: center; /* Move to center */
+}
+
+.work-section h2>span {
+  color: var(--accentColor);
+}
+
+.work-container {
+  margin: auto;
+  max-width: 1400px; /* Wider for floating cards */
+  padding: 0 5%;
+}
+
+/* ── Floating Projects Wrapper ── */
+.floating-projects-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+  padding: 50px 0;
+}
+
+/* ── Floating Project Card ── */
+.floating-project-card {
+  position: relative;
+  width: 55%;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.left-aligned {
+  align-self: flex-start;
+}
+
+.right-aligned {
+  align-self: flex-end;
+}
+
+/* Futuristic orbiting particles */
+.orbit-element {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.orbit-1 {
+  width: 15px; height: 15px;
+  background: var(--accentColor);
+  box-shadow: 0 0 15px var(--accentColor);
+  top: -10%; left: -5%;
+  animation: floatOrb 5s ease-in-out infinite alternate;
+}
+.orbit-2 {
+  width: 8px; height: 8px;
+  background: #a855f7; /* purple neon */
+  box-shadow: 0 0 10px #a855f7;
+  bottom: 10%; right: -10%;
+  animation: floatOrb 4s ease-in-out infinite alternate-reverse;
+}
+.orbit-3 {
+  width: 5px; height: 5px;
+  background: #38bdf8; /* light blue */
+  box-shadow: 0 0 8px #38bdf8;
+  top: 50%; right: 5%;
+  animation: floatOrb 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatOrb {
+  0% { transform: translateY(0) translateX(0) scale(1); }
+  50% { transform: translateY(-20px) translateX(10px) scale(1.2); }
+  100% { transform: translateY(10px) translateX(-20px) scale(0.8); }
+}
+
+.floating-project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.floating-project-card:hover .floating-project-content {
+  transform: scale(1.05) translateY(-10px);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 25px rgba(94, 234, 212, 0.2);
+  border-color: rgba(94, 234, 212, 0.4);
+}
+
+/* Holographic frame for image */
+.holographic-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.6), rgba(168, 85, 247, 0.6), rgba(0,0,0,0));
+  background-size: 200% 200%;
+  animation: holoGradient 4s ease infinite;
+  box-shadow: inset 0 0 20px rgba(94, 234, 212, 0.3);
+}
+
+@keyframes holoGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.holographic-frame .work-image {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  transition: transform 0.4s ease; /* override previous hover */
+}
+.holographic-frame .work-image img {
+  border-radius: 10px;
+  display: block;
+}
+
+.floating-project-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.floating-project-number {
+  font-size: 50px;
+  font-weight: 700;
+  opacity: 0.15;
+  color: #fff;
+}
+
+.floating-project-text h4 {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.floating-category {
+  color: #a855f7;
+  font-size: 14px;
+  margin: 5px 0 0 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── Work Image Base ── */
+.work-image {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.work-image-in {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.work-image img {
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+  min-height: 250px;
+}
+.work-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background-color: var(--backgroundColor);
+  width: 60px;
+  border-radius: 50%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  box-shadow: 0px 0px 15px rgba(94, 234, 212, 0.5), inset 0px 0px 10px #393939;
+  transition: 0.3s;
+  opacity: 0;
+  z-index: 2;
+  color: var(--accentColor);
+}
+.work-image-in:hover .work-link {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.work-image-in:hover img {
+  transform: scale(1.05);
+}
+
+/* ── Pop-out Description Panel (Modal) ── */
+.project-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 8, 16, 0.3); /* Lighter, matches site background tint */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(25px); /* Much stronger blur to hide content but keep colors */
+  -webkit-backdrop-filter: blur(25px);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.project-modal-content {
+  background: var(--backgroundColor);
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(168, 85, 247, 0.1), 0 0 30px rgba(94, 234, 212, 0.2);
+  transform: scale(0.9);
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.project-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  display: flex;
+}
+
+.project-modal-close:hover { opacity: 1; }
+
+.project-modal-content h3 {
+  font-size: 28px;
+  color: var(--accentColor);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.project-modal-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+.project-github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--accentColor);
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-github-link:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* ── Responsive ── */
+@media only screen and (max-width: 1025px) {
+  .floating-project-card {
+    width: 80%;
+    align-self: center !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .floating-project-card { width: 100%; }
+  .work-section h2 { font-size: 50px; }
+}
