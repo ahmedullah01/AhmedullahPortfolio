@@ -121,12 +121,29 @@ const TechStack = () => {
         padding: '100px 0' // Match outer box padding exactly to Work.tsx
     }}>
       
-      {/* Subtle Space Background */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', opacity: 0.6 }}>
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+        <Canvas 
+          camera={{ position: [0, 0, 10], fov: 45 }}
+          dpr={[1, 2]} // Performance: Cap pixel ratio
+          gl={{ antialias: false }} // Performance: Disable antialias
+        >
           <ambientLight intensity={0.5} />
-          <Sparkles count={150} scale={25} size={2} speed={0.4} opacity={0.3} color="#ffffff" />
-          <Sparkles count={50} scale={20} size={4} speed={0.2} opacity={0.2} color="#00f3ff" />
+          <Sparkles 
+            count={window.innerWidth < 768 ? 50 : 150} 
+            scale={25} 
+            size={2} 
+            speed={0.4} 
+            opacity={0.3} 
+            color="#ffffff" 
+          />
+          <Sparkles 
+            count={window.innerWidth < 768 ? 20 : 50} 
+            scale={20} 
+            size={4} 
+            speed={0.2} 
+            opacity={0.2} 
+            color="#00f3ff" 
+          />
         </Canvas>
       </div>
 

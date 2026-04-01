@@ -25,27 +25,34 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   );
 
   useEffect(() => {
+    let timeoutId: number;
     const resizeHandler = () => {
-      setSplitText();
-      setIsDesktopView(window.innerWidth > 1024);
+      // Debounce resize to prevent layout thrashing
+      clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
+        setSplitText();
+        setIsDesktopView(window.innerWidth > 1024);
+      }, 150);
     };
-    resizeHandler();
+    
+    setSplitText();
     window.addEventListener("resize", resizeHandler);
     return () => {
       window.removeEventListener("resize", resizeHandler);
+      clearTimeout(timeoutId);
     };
-  }, [isDesktopView]);
+  }, []);
 
   useGSAP(() => {
     const sections = gsap.utils.toArray('.section-container, .full-width-section');
     sections.forEach((section: any) => {
       gsap.fromTo(section, 
-        { y: 60, opacity: 0 }, 
+        { y: 30, opacity: 0 }, 
         {
-          y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+          y: 0, opacity: 1, duration: 0.8, ease: 'power2.out',
           scrollTrigger: {
             trigger: section,
-            start: 'top 85%',
+            start: 'top 90%',
             toggleActions: 'play none none reverse'
           }
         }
@@ -54,28 +61,25 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <ReactLenis root options={{ lerp: 0.08, duration: 1.5, smoothWheel: true }}>
-      <div className="container-main">
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
+      <div className="app-wrapper">
         <ScrollController />
-        <Cursor />
+        {!isDesktopView ? null : <Cursor />}
         <Navbar />
         <SocialIcons />
-        {isDesktopView && children}
         <div id="smooth-wrapper">
           <div id="smooth-content">
-            <div className="container-main">
-              <Landing>{!isDesktopView && children}</Landing>
-              <About />
-              <WhatIDo />
-              <Career />
-              <Work />
-              {isDesktopView && (
-                <Suspense fallback={<div>Loading....</div>}>
-                  <TechStack />
-                </Suspense>
-              )}
-              <Contact />
-            </div>
+            <Landing>
+              {children}
+            </Landing>
+            <About />
+            <WhatIDo />
+            <Career />
+            <Work />
+            <Suspense fallback={<div className="section-loader">Loading tech...</div>}>
+               <TechStack />
+            </Suspense>
+            <Contact />
           </div>
         </div>
       </div>

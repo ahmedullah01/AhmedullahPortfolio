@@ -106,17 +106,16 @@
 }
 
 .character-model {
-  height: 80%;
-  height: 80vh;
+  height: 70vh;
   position: absolute;
   max-width: 1920px;
   max-height: 1080px;
   transform: translateX(-50%);
   width: 100%;
   left: 50%;
-  z-index: 0;
-  bottom: 50px;
-  pointer-events: inherit;
+  z-index: 1;
+  bottom: 0;
+  pointer-events: none;
 }
 
 .character-model::after {
@@ -249,25 +248,45 @@ h2.landing-info-h2 {
   top: 0;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
+  .landing-intro {
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 90%;
+  }
   .landing-intro h1 {
-    font-size: 2.5rem;
-    line-height: 1.1;
+    font-size: 2.8rem;
+    line-height: 1;
   }
   .landing-intro h2 {
-    font-size: 1rem;
-    margin-bottom: 5px;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .landing-info {
+    top: auto;
+    bottom: 80px;
+    right: 50%;
+    transform: translateX(50%);
+    text-align: center;
+    width: 90%;
   }
   .landing-info h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   .landing-info h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     line-height: 1.2;
     margin-left: 0;
+    justify-content: center;
   }
   h2.landing-info-h2 {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    width: 100%;
+  }
+  .landing-circle1, .landing-circle2 {
+    display: none; /* Turn off floating circles on mobile to save GPU */
   }
 }
 
